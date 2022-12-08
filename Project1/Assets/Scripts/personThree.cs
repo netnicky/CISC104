@@ -12,19 +12,6 @@ public class personThree
     public int fails = 0;
 
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-
     public void AttemptToGetTreasure()
     {
         Random rng = new Random();
@@ -49,7 +36,15 @@ public class personThree
 
     public void DangerIsOn()
     {
-        treasureCanGet += 15;
-        treasureCanLose += 15;
+        treasureCanGet = 30;
+        treasureCanLose = 15;
     }
+
+    public void NewGame()
+    {
+        personThreeScore = 0;
+        fails = 0;
+        DangerIsOff();
+    }
+
 }

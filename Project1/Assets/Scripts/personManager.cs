@@ -6,36 +6,26 @@ using UnityEngine.UI;
 
 public class personManager : MonoBehaviour
 {
-    //person person = new person
-    //set up buttons how they are set up in project 2 THEY MUST BE SET UP IN THIS BC ITS MONOBEHAVIOUR
-    //button1 on click does like this
-    //step1 run a priv void that gets the number to beat and then checks if the person failed or not 
-    //step2 if succ, add the person1 treasure (the person class checks if the db is on, so the proper treasure will be added
-    //step2b if fail, add the person1 penalty (will be 0 if the db is off)
-
-    //i want it to be round based and potentially have a high score thing but idk how to implement that. 
-    //when the rounds = 50 or the fails = 20, the game ends
-
-    //for idk the peoples
+    //for the peoples
     private personOne personOne;
     private personTwo personTwo;
     private personThree personThree;
-
 
     //the buttons
     public Button personOneButton;
     public Button personTwoButton;
     public Button personThreeButton;
+    public Button dangerButton;
 
-    //the turns and fails
+    //the turns and fails and total treasure
     public int turns = 0;
     public int fails = 0;
-
     public int totalTreasure = 0;
 
-    //an int that's value will be the person one score but idk the best way to do this
-
+    //the bools
     public bool gameOver = false;
+
+    public bool isDanger = false;
 
     //for the text
     public GameObject turnCounterObject;
@@ -72,7 +62,7 @@ public class personManager : MonoBehaviour
         turnCounter.text = "Turns: " + turns.ToString();
         failCounter.text = "Fails: " + fails.ToString();
         treasureCounter.text = "Treasure Gained: " + totalTreasure.ToString();
-        if (GetComponent<DangerButtonManager>().isDanger == true)
+        if (isDanger == true)
         {
             dangerText.text = "Danger Mode: On";
         }
@@ -83,7 +73,7 @@ public class personManager : MonoBehaviour
 
         if (gameOver == true)
         {
-            resetText.text = "Game Over. Click anywhere to continue.";
+            resetText.text = "Game Over. Click any button to reset.";
         }
         else
         {
@@ -94,43 +84,99 @@ public class personManager : MonoBehaviour
 
     public void PersonOneClicked()
     {
-        personOne.AttemptToGetTreasure();
+        if(gameOver == false)
+        {
+            personOne.AttemptToGetTreasure();
 
-        turns++;
+            turns++;
 
-        RoundOver();
+            RoundOver();
+        }else
+        {
+            NewGame();
+        }
     }
 
     public void PersonTwoClicked()
     {
-        personTwo.AttemptToGetTreasure();
+        if(gameOver == false)
+        {
+            personTwo.AttemptToGetTreasure();
 
-        turns++;
+            turns++;
 
-        RoundOver();
+            RoundOver();
+        }else
+        {
+            NewGame();
+        }
     }
 
     public void PersonThreeClicked()
     {
-        personThree.AttemptToGetTreasure();
+        if(gameOver == false)
+        {
+            personThree.AttemptToGetTreasure();
 
-        turns++;
+            turns++;
 
-        RoundOver();
+            RoundOver();
+        }else
+        {
+            NewGame();
+        }
     }
 
+    public void DangerClick()
+    {
+        if(gameOver == false)
+        {
+            isDanger = !isDanger;
+
+            if (isDanger == true)
+            {
+                personOne.DangerIsOn();
+                personTwo.DangerIsOn();
+                personThree.DangerIsOn();
+            }
+            else
+            {
+                personOne.DangerIsOff();
+                personTwo.DangerIsOff();
+                personThree.DangerIsOff();
+            }
+        }else
+        {
+            NewGame();
+        }
+    }
 
     public void RoundOver()
     {
         totalTreasure = personOne.PersonOneScore + personTwo.personTwoScore + personThree.personThreeScore;
         fails = personOne.fails + personTwo.fails + personThree.fails;
-        //something about calculating the total treasure by adding up the individual scores
-        //calculating the fails?
+        CheckScores();
     }
 
-    public void GameOver()
+    public void CheckScores()
     {
+        //it checks if the turns equals a certain number or if the fails equals a certain number and if so it will run the game over
+        if(turns == 60 || fails == 20)
+        {
+            gameOver = true;
+        }
+    }
 
+    public void NewGame()
+    {
+        gameOver = false;
+        isDanger = false;
+        turns = 0;
+        fails = 0;
+        totalTreasure = 0;
+        personOne.NewGame();
+        personTwo.NewGame();
+        personThree.NewGame();
     }
 
 }

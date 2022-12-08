@@ -12,30 +12,16 @@ public class personTwo
     public int fails = 0;
 
 
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-     
-    }
-
     public void DangerIsOff()
     {
         treasureCanGet = 10;
         treasureCanLose = 0;
-        Console.WriteLine("treasure is now normal");
     }
 
     public void DangerIsOn()
     {
         treasureCanGet = 20;
         treasureCanLose = 10;
-        Console.WriteLine("treasure is now dangermode"); 
     }
 
     public void AttemptToGetTreasure()
@@ -54,5 +40,11 @@ public class personTwo
         }
     }
 
+    public void NewGame()
+    {
+        personTwoScore = 0;
+        fails = 0;
+        DangerIsOff();
+    }
 
 }

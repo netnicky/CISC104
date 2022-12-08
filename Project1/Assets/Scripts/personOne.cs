@@ -12,26 +12,6 @@ public class personOne
     public int PersonOneScore = 0;
     public int fails = 0;
 
-    //game stuff idk if it belongs in this class or whatever
-    //nvm it doesnt belong in here it belongs in the other class
-    //basically theres a new game function that sets all the floats of the turn numbers to 0, turns the danger button off, and enables button clicks.
-
-    //do a set score thing that the manager can access?
-
-
-    // Start is called before the first frame update
-    void Start()
-    {
-     
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-      
-    }
-
-
     //this is how the thing works
     public void AttemptToGetTreasure()
     {
@@ -61,4 +41,36 @@ public class personOne
         treasureCanLose = 5;
     }
 
+    public void NewGame()
+    {
+        PersonOneScore = 0;
+        fails = 0;
+        DangerIsOff();
+    }
+
+    //these are all for the tests so the tests can run
+    public float GetCanGet()
+    {
+        return treasureCanGet;
+    }
+
+    public float GetCanLose()
+    {
+        return treasureCanLose;
+    }
+
+    public float GetScore()
+    {
+        return PersonOneScore;
+    }
+
+    public float GetFails()
+    {
+        return fails;
+    }
+
+    public float GetRate()
+    {
+        return successRate;
+    }
 }
